@@ -1,43 +1,22 @@
 import { useState, useEffect } from "react";
 import { DateTime } from "luxon";
-
-const apiUrl = "http://localhost:3000/api";
-
-interface BlogpostProps {
-	postId: string;
-}
-
-type BlogpostData = {
-	_id: string;
-	title: string;
-	body: string;
-	author: {
-		_id: string;
-		username: string;
-	};
-	published: boolean;
-	datePosted: string;
-	dateUpdated: string;
-};
+import { getBlogPost } from "../lib/api";
 
 const Blogpost = ({ postId }: BlogpostProps) => {
 	const [loading, setLoading] = useState(false);
 	const [post, setPost] = useState<BlogpostData>();
 
-	const fetchBlogpost = async () => {
-		setLoading(true);
-
-		const res = await fetch(`${apiUrl}/posts/${postId}`, { mode: "cors" });
-		const data: BlogpostData = await res.json();
-		console.log(data);
-
-		setPost(data);
-		setLoading(false);
-	};
-
 	useEffect(() => {
+		const fetchBlogpost = async () => {
+			setLoading(true);
+			const data = await getBlogPost(postId);
+
+			setPost(data);
+			setLoading(false);
+		};
+
 		fetchBlogpost();
-	}, []);
+	}, [postId]);
 
 	return (
 		!loading &&
