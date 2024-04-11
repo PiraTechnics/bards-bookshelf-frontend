@@ -1,5 +1,7 @@
+const blogApiUrl = `${import.meta.env.VITE_API_URL}/blog`;
+
 export const getAllBlogPosts = async () => {
-	const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/`, {
+	const res = await fetch(`${blogApiUrl}/posts`, {
 		mode: "cors",
 	});
 
@@ -10,8 +12,8 @@ export const getAllBlogPosts = async () => {
 	return res.json();
 };
 
-export const getBlogPost = async (postId: string) => {
-	const res = await fetch(`${import.meta.env.VITE_API_URL}/posts/${postId}`, {
+export const getBlogPost = async (postSlug: string) => {
+	const res = await fetch(`${blogApiUrl}/posts/${postSlug}`, {
 		mode: "cors",
 	});
 

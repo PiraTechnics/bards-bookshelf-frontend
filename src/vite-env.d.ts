@@ -3,18 +3,26 @@
 // All Typescript Types and Prop Interfaces for Blog Data Types
 
 interface BlogpostProps {
-	postId: string;
+	postSlug: string;
 }
+
+type CommentData = {
+	content: string;
+	datePosted: Date;
+	commentor: string;
+};
 
 type BlogpostData = {
 	_id: string;
 	title: string;
-	body: string;
+	content: string;
 	author: {
 		_id: string;
 		username: string;
 	};
 	published: boolean;
-	datePosted: string;
-	dateUpdated: string;
+	datePosted: Date;
+	dateUpdated: Date;
+	slug: string;
+	comments: [CommentData];
 };
