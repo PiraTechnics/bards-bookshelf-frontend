@@ -1,7 +1,8 @@
 const blogApiUrl = `${import.meta.env.VITE_API_URL}/blog`;
 
-export const getAllBlogPosts = async () => {
-	const res = await fetch(`${blogApiUrl}/posts`, {
+export const getBlogPosts = async (limit: number) => {
+	//limit is max number of results to fetch, 0 = no limit
+	const res = await fetch(`${blogApiUrl}/posts?limit=${limit}`, {
 		mode: "cors",
 	});
 
