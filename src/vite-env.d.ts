@@ -16,12 +16,12 @@ type userData = {
 
 type CommentData = {
 	content: string;
-	datePosted: Date;
+	datePosted: string;
 	commentor: string;
 };
 
 type BlogpostData = {
-	id: string;
+	_id: string;
 	title: string;
 	content: string;
 	author: {
@@ -31,8 +31,8 @@ type BlogpostData = {
 		username: string;
 	};
 	published: boolean;
-	datePosted: Date;
-	dateUpdated: Date;
+	datePosted: string;
+	dateUpdated: string;
 	slug: string;
 	comments: [CommentData];
 };
