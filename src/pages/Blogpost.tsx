@@ -24,21 +24,21 @@ const Blogpost = () => {
 	}, [slug]);
 
 	const blogpostData = post && (
-		<div className="flex flex-col gap-4">
-			<h1>{post.title}</h1>
+		<article className="mx-auto border-2 rounded-xl p-6 mb-8 lg:max-w-screen-lg">
+			<h2>{post.title}</h2>
 			<p>{post.content}</p>
-			<p className="text-slate-700">
+			<p className="text-slate-600 text-sm">
 				{DateTime.fromJSDate(new Date(post.datePosted)).toLocaleString(
 					DateTime.DATETIME_MED
 				)}
 			</p>
-		</div>
+		</article>
 	);
 
 	return (
 		<Layout
 			content={
-				<div className="mx-auto grid max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-16 lg:mx-0 lg:max-w-none lg:grid-cols-3">
+				<div className="mx-auto max-w-2xl grid-cols-1 gap-x-8 gap-y-16 border-t border-gray-200 pt-10 sm:mt-16 sm:pt-8 lg:mx-0 lg:max-w-screen-2xl">
 					{loading ? <p>Loading...</p> : blogpostData}
 				</div>
 			}
