@@ -21,6 +21,7 @@ const Login = () => {
 		} else {
 			//console.log(results);
 			localStorage.setItem("token", results.token);
+			localStorage.setItem("username", formData.username);
 			navigate("/");
 		}
 	};
