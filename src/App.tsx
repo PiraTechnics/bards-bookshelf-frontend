@@ -4,6 +4,7 @@ import Blogpost from "./pages/Blogpost";
 import LoginForm from "./pages/Login";
 import RegisterForm from "./pages/Register";
 import AllPosts from "./pages/AllPosts";
+import NewPost from "./pages/NewPost";
 
 function App() {
 	return (
@@ -14,6 +15,7 @@ function App() {
 				<Route path="/register" element={<RegisterForm />}></Route>
 				<Route path="/blog/" element={<AllPosts />} />
 				<Route path="/blog/:slug" element={<Blogpost />} />
+				<Route path="/blog/new" element={<NewPost />} />
 			</Routes>
 		</BrowserRouter>
 	);
