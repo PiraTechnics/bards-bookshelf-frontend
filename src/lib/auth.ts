@@ -1,6 +1,26 @@
 const authUrl = `${import.meta.env.VITE_API_URL}/auth`;
 
-export const registerUser = () => {};
+export const registerUser = async (newUserData: {
+	firstname: string;
+	lastname: string;
+	username: string;
+	password: string;
+	passwordConfirmation: string;
+	authorCode: string;
+}) => {
+	const res = await fetch(`${authUrl}/register`, {
+		method: "POST",
+		mode: "cors",
+		headers: {
+			"Content-Type": "application/json",
+		},
+		redirect: "follow",
+		referrerPolicy: "no-referrer",
+		body: JSON.stringify(newUserData),
+	});
+
+	return res.json();
+};
 
 export const loginUser = async (loginData: {
 	username: string;

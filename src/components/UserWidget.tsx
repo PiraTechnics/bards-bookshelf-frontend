@@ -6,8 +6,8 @@ const UserWidget = () => {
 	const handleLogout = () => {
 		localStorage.clear();
 		setUser(null);
+		alert("You have been logged out");
 		//NOTE: Might want to make this prettier, and actually redirect to a 'Logged out' page before redirecting back to main page
-		// It would just look a bit more intuitive, yanno?
 	};
 
 	return (
