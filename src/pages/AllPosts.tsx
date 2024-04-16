@@ -30,7 +30,7 @@ const AllPosts = () => {
 								className="mx-auto border-2 rounded-xl p-6 mb-8 lg:max-w-screen-lg"
 							>
 								<h2>{post.title}</h2>
-								<p>{post.content}</p>
+								<div dangerouslySetInnerHTML={{ __html: post.content }} />
 								<p className="text-slate-600 text-sm">
 									{DateTime.fromJSDate(
 										new Date(post.datePosted)

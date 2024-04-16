@@ -44,11 +44,15 @@ const Home = () => {
 								{post.title}
 							</a>
 						</h3>
-						<p className="mt-4 line-clamp-3 text-sm leading-6 text-gray-600">
-							{post.content.length > 100
-								? `${post.content.substring(0, 100)}...`
-								: post.content}
-						</p>
+						<div
+							className="mt-4 line-clamp-3 text-sm leading-6 text-gray-600"
+							dangerouslySetInnerHTML={{
+								__html:
+									post.content.length > 100
+										? `${post.content.substring(0, 100)}...`
+										: post.content,
+							}}
+						></div>
 					</div>
 					<div className="relative mt-2 flex items-center gap-x-4">
 						<div className="text-sm leading-6">
