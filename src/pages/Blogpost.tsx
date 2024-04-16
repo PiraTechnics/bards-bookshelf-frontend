@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { DateTime } from "luxon";
-import { getBlogPost } from "../lib/api";
+import { getBlogPost } from "../lib/blog";
 import { useParams } from "react-router-dom";
 import Layout from "../components/Layout";
 import Error from "../components/Error";
@@ -29,13 +29,18 @@ const Blogpost = () => {
 
 	const blogpostData = post && (
 		<article className="mx-auto border-2 rounded-xl p-6 mb-8 lg:max-w-screen-lg">
-			<h2>{post.title}</h2>
-			<p>{post.content}</p>
-			<p className="text-slate-600 text-sm">
-				{DateTime.fromJSDate(new Date(post.datePosted)).toLocaleString(
-					DateTime.DATETIME_MED
-				)}
-			</p>
+			<div className="border-b pb-2 mb-8">
+				<h2>{post.title}</h2>
+			</div>
+			<div dangerouslySetInnerHTML={{ __html: post.content }}></div>
+			<div className="text-slate-600 text-sm mt-4 pt-2 border-t flex flex-col">
+				<p className="text-slate-700">{post.author.username}</p>
+				<p>
+					{DateTime.fromJSDate(new Date(post.datePosted)).toLocaleString(
+						DateTime.DATETIME_MED
+					)}
+				</p>
+			</div>
 		</article>
 	);
 

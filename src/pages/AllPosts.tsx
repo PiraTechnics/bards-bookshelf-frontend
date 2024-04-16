@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getBlogPosts } from "../lib/api";
+import { getBlogPosts } from "../lib/blog";
 import Layout from "../components/Layout";
 import { DateTime } from "luxon";
 
