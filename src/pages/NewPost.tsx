@@ -1,32 +1,24 @@
 import { useState } from "react";
 import Layout from "../components/Layout";
-import RichTextEditor from "../components/RichTextEditor";
 import { Switch } from "@headlessui/react";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
 
 const NewPost = () => {
-	const [formData, setFormData] = useState({
-		title: "",
-		content: "",
-	});
+	const [title, setTitle] = useState("");
+	const [content, setContent] = useState("");
 	const [publish, setPublish] = useState(false);
-
-	const handleChange = (e: { target: { name: string; value: string } }) => {
-		const { name, value } = e.target;
-		setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
-	};
 
 	function classNames(...classes: string[]) {
 		return classes.filter(Boolean).join(" ");
 	}
-
-	//Note: How do we handle form submission with Quill? IE -- how do we get the contents of the text editor
 
 	return (
 		<Layout
 			content={
 				<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-4 lg:px-8 border-t mt-4 border-gray-200">
 					<h3>New Post</h3>
-					<div className="mt-4 p-4 border-2 border-gray-200 rounded-md flex flex-col">
+					<div className="mt-4 py-8 px-24 border-2 border-gray-200 rounded-md flex flex-col">
 						<div className="flex flex-col gap-2 pb-4">
 							<label htmlFor="title" className="block leading-6 text-gray-900">
 								Post Title
@@ -35,15 +27,19 @@ const NewPost = () => {
 								id="title"
 								name="title"
 								type="text"
-								value={formData.title}
-								onChange={handleChange}
+								value={title}
+								onChange={(e) => setTitle(e.target.value)}
 								required
 								className="block w-full p-1.5 border border-slate-300 text-gray-900 shadow-sm sm:text-sm sm:leading-6"
 							/>
 						</div>
 						<div className="flex flex-col gap-2 pb-4">
 							<p>Post Body</p>
-							<RichTextEditor />
+							<ReactQuill
+								theme="snow"
+								value={content}
+								onChange={(content) => setContent(content)}
+							/>
 						</div>
 						<div className="grid grid-cols-2 gap-8">
 							<Switch.Group as="div" className="flex items-center">
