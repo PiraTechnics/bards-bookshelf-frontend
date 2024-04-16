@@ -1,4 +1,4 @@
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 import HomePage from "./pages/Home";
 import Blogpost from "./pages/Blogpost";
 import LoginForm from "./pages/Login";
@@ -11,11 +11,38 @@ function App() {
 		<BrowserRouter>
 			<Routes>
 				<Route index element={<HomePage />} />
-				<Route path="/login" element={<LoginForm />}></Route>
-				<Route path="/register" element={<RegisterForm />}></Route>
+				<Route
+					path="/login"
+					element={
+						localStorage.getItem("token") ? (
+							<Navigate to="/" replace />
+						) : (
+							<LoginForm />
+						)
+					}
+				></Route>
+				<Route
+					path="/register"
+					element={
+						localStorage.getItem("token") ? (
+							<Navigate to="/" replace />
+						) : (
+							<RegisterForm />
+						)
+					}
+				></Route>
 				<Route path="/blog/" element={<AllPosts />} />
 				<Route path="/blog/:slug" element={<Blogpost />} />
-				<Route path="/blog/new" element={<NewPost />} />
+				<Route
+					path="/blog/new"
+					element={
+						localStorage.getItem("token") ? (
+							<NewPost />
+						) : (
+							<Navigate to="/blog" replace />
+						)
+					}
+				/>
 			</Routes>
 		</BrowserRouter>
 	);
