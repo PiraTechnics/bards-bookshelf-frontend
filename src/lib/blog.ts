@@ -31,7 +31,6 @@ export const createNewBlogPost = async (blogPostData: {
 	content: string;
 	publish: boolean;
 }) => {
-	//const headers = { Authorization: `Bearer ${localStorage.getItem("token")}` };
 	const res = await fetch(`${blogApiUrl}/posts/`, {
 		method: "POST",
 		mode: "cors",
@@ -43,6 +42,34 @@ export const createNewBlogPost = async (blogPostData: {
 		referrerPolicy: "no-referrer",
 		body: JSON.stringify(blogPostData),
 	});
+
+	return res.json();
+};
+
+export const AddCommentToBlogPost = async (AddCommentProps: {
+	parentPost: string;
+	content: string;
+	commentor: string;
+}) => {
+	const comment = {
+		content: AddCommentProps.content,
+		commentor: AddCommentProps.commentor,
+	};
+
+	const res = await fetch(
+		`${blogApiUrl}/posts/${AddCommentProps.parentPost}/comment`,
+		{
+			method: "POST",
+			mode: "cors",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${localStorage.getItem("token")}`,
+			},
+			redirect: "follow",
+			referrerPolicy: "no-referrer",
+			body: JSON.stringify(comment),
+		}
+	);
 
 	return res.json();
 };

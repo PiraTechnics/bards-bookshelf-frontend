@@ -6,6 +6,13 @@ interface BlogpostProps {
 	postSlug: string;
 }
 
+interface CommentProps {
+	_id: string;
+	content: string;
+	datePosted: string;
+	commentor: string;
+}
+
 type userData = {
 	username: string;
 	password: string;
@@ -15,6 +22,7 @@ type userData = {
 };
 
 type CommentData = {
+	_id: string;
 	content: string;
 	datePosted: string;
 	commentor: string;

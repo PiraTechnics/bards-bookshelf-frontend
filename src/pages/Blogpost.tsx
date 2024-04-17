@@ -4,54 +4,70 @@ import { getBlogPost } from "../lib/blog";
 import { useParams } from "react-router-dom";
 import Layout from "../components/Layout";
 import Error from "../components/Error";
+import Comment from "../components/Comment";
+import AddCommentForm from "../components/AddCommentForm";
 
 const Blogpost = () => {
 	const { slug } = useParams();
-	const [loading, setLoading] = useState(false);
+	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState(null);
 	const [post, setPost] = useState<BlogpostData>();
+	const [refresh, setRefresh] = useState(false); //refresh state for new comment submission
 
 	useEffect(() => {
 		//console.log(`slug for lookup is: ${slug}`);
-		const fetchBlogpost = async () => {
-			setLoading(true);
-			const data = await getBlogPost(slug || "").catch((error) =>
-				setError(error)
-			);
 
-			setPost(data);
+		const fetchBlogpost = async () => {
+			const data = await getBlogPost(slug || "").catch((error) => {
+				setError(error);
+				setLoading(false);
+			});
+
+			//check if post has changed/been updated
+			if (post !== data) {
+				setPost(data);
+			}
+
 			setLoading(false);
-			//console.log(data);
+			setRefresh(false);
 		};
 
 		fetchBlogpost();
-	}, [slug]);
-
-	const blogpostData = post && (
-		<article className="mx-auto border-2 rounded-xl p-6 mb-8 lg:max-w-screen-lg">
-			<div className="border-b pb-2 mb-8">
-				<h2>{post.title}</h2>
-			</div>
-			<div dangerouslySetInnerHTML={{ __html: post.content }}></div>
-			<div className="text-slate-600 text-sm mt-4 pt-2 border-t flex flex-col">
-				<p className="text-slate-700">{post.author.username}</p>
-				<p>
-					{DateTime.fromJSDate(new Date(post.datePosted)).toLocaleString(
-						DateTime.DATETIME_MED
-					)}
-				</p>
-			</div>
-		</article>
-	);
+	}, [refresh]);
 
 	const postContent = () => {
-		if (error) {
-			return <Error />;
-		}
 		if (loading) {
 			return <p>Loading...</p>;
 		}
-		return blogpostData;
+		if (error || !post) {
+			return <Error />;
+		}
+
+		return (
+			<>
+				<article className="mx-auto border-2 rounded-xl p-6 mb-8 lg:max-w-screen-lg">
+					<div className="border-b pb-2 mb-8">
+						<h2>{post.title}</h2>
+					</div>
+					<div dangerouslySetInnerHTML={{ __html: post.content }}></div>
+					<div className="text-slate-600 text-sm mt-4 pt-2 border-t flex flex-col">
+						<p className="text-slate-700">{post.author.username}</p>
+						<p>
+							{DateTime.fromJSDate(new Date(post.datePosted)).toLocaleString(
+								DateTime.DATETIME_MED
+							)}
+						</p>
+					</div>
+				</article>
+				<div className="flex flex-col items-start px-2">
+					<h5 className="underline mb-4">Comments</h5>
+					{post.comments.map((comment) => (
+						<Comment key={comment._id} comment={comment} />
+					))}
+					<AddCommentForm postSlug={post.slug} setReload={setRefresh} />
+				</div>
+			</>
+		);
 	};
 
 	return (

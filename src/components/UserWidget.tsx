@@ -1,13 +1,14 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 const UserWidget = () => {
 	const [user, setUser] = useState(localStorage.getItem("username"));
+	const navigate = useNavigate();
 
 	const handleLogout = () => {
 		localStorage.clear();
 		setUser(null);
-		alert("You have been logged out");
-		//NOTE: Might want to make this prettier, and actually redirect to a 'Logged out' page before redirecting back to main page
+		navigate("/");
 	};
 
 	return (
