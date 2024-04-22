@@ -117,7 +117,7 @@ const AdminDashboard = () => {
 									</td>
 									<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500">
 										<a
-											href="#"
+											href={`/blog/${post.slug}/edit`}
 											className="text-indigo-600 hover:text-indigo-900"
 										>
 											Edit
@@ -126,7 +126,6 @@ const AdminDashboard = () => {
 									<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
 										<button
 											type="button"
-											//data-value={post}
 											onClick={() => handlePublishUnpublish(post)}
 											className="rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 focus:bg-slate-600"
 										>

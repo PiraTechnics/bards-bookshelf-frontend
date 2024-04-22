@@ -6,6 +6,7 @@ import RegisterForm from "./pages/Register";
 import AllPosts from "./pages/AllPosts";
 import NewPost from "./pages/NewPost";
 import AdminDashboard from "./pages/AdminDashboard";
+import EditPost from "./pages/EditPost";
 
 function App() {
 	return (
@@ -50,6 +51,16 @@ function App() {
 					element={
 						localStorage.getItem("token") ? (
 							<NewPost />
+						) : (
+							<Navigate to="/blog" replace />
+						)
+					}
+				/>
+				<Route
+					path="/blog/:slug/edit"
+					element={
+						localStorage.getItem("token") ? (
+							<EditPost />
 						) : (
 							<Navigate to="/blog" replace />
 						)

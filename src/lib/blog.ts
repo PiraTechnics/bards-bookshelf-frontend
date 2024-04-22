@@ -90,8 +90,21 @@ export const AddCommentToBlogPost = async (AddCommentProps: {
 	return res.json();
 };
 
-export const UpdateBlogPost = async (BlogPostProps: BlogpostData) => {
-	const res = await fetch(`${blogApiUrl}/posts/${BlogPostProps.slug}`, {
+export const UpdateBlogPost = async (blogPostData: {
+	title: string;
+	content: string;
+	published: boolean;
+	slug: string;
+}) => {
+	//Note should probably re-sanitize the content before updating
+
+	const updatedPost = {
+		title: blogPostData.title,
+		content: blogPostData.content,
+		published: blogPostData.published,
+	};
+
+	const res = await fetch(`${blogApiUrl}/posts/${blogPostData.slug}`, {
 		method: "PUT",
 		mode: "cors",
 		headers: {
@@ -100,7 +113,7 @@ export const UpdateBlogPost = async (BlogPostProps: BlogpostData) => {
 		},
 		redirect: "follow",
 		referrerPolicy: "no-referrer",
-		body: JSON.stringify(BlogPostProps),
+		body: JSON.stringify(updatedPost),
 	});
 
 	return res.json();
