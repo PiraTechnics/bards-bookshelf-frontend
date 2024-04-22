@@ -23,7 +23,7 @@ const NewPost = () => {
 		const results = await createNewBlogPost({
 			title: title,
 			content: DOMPurify.sanitize(content),
-			publish: publish,
+			published: publish,
 		});
 
 		if (results.errors || results.error) {

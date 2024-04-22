@@ -30,3 +30,7 @@ Setup & Installation:
 Written for Project: Blog API, _The Odin Project_: https://www.theodinproject.com/lessons/nodejs-blog-api
 
 Thanks to the tireless community of developers and teachers for all you do.
+
+### Known Issues/Bugs
+
+1. User stays logged in after token expires server-side. This is undesirable and causes strange behavior when attempting to access protected routes

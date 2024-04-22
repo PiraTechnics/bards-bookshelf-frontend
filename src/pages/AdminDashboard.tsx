@@ -1,15 +1,26 @@
 import { useEffect, useState } from "react";
 //import Error from "../components/Error";
 import { isAdmin } from "../lib/auth";
-import { getPublishedUnpublishedBlogPosts } from "../lib/blog";
+import { UpdateBlogPost, getPublishedUnpublishedBlogPosts } from "../lib/blog";
 import AdminLayout from "../components/AdminLayout";
 import { DateTime } from "luxon";
 
 const AdminDashboard = () => {
 	const [loading, setLoading] = useState(false);
 	const [posts, setPosts] = useState<BlogpostData[]>([]);
-	const [userAuthorized, setUserAuthorized] = useState(false);
-	const currentUser = localStorage.getItem("username") || "";
+	//const [userAuthorized, setUserAuthorized] = useState(false);
+	//const currentUser = localStorage.getItem("username") || "";
+
+	const handlePublishUnpublish = (data: BlogpostData) => {
+		console.log(data);
+
+		data.published = data.published ? false : true; //publish if was draft, and vice-verse
+
+		const result = UpdateBlogPost(data);
+		//console.log(result);
+
+		window.location.reload(); //reload page after update
+	};
 
 	useEffect(() => {
 		const fetchAuthorizationAndPosts = async () => {
@@ -21,8 +32,8 @@ const AdminDashboard = () => {
 				console.log(result.message);
 			} else {
 				//Success state
-				setUserAuthorized(result);
-				console.log(`Logged in as: ${currentUser}, Admin Status: ${result}`);
+				//setUserAuthorized(result);
+				//console.log(`Logged in as: ${currentUser}, Admin Status: ${result}`);
 				const data = await getPublishedUnpublishedBlogPosts(0); //retreive all posts (0 = no limit)
 				setPosts(data);
 			}
@@ -44,12 +55,12 @@ const AdminDashboard = () => {
 			content={
 				<div className="inline-block min-w-full py-2 mt-4 align-middle sm:px-6 lg:px-8">
 					<h5 className="font-semibold">Your Posts</h5>
-					<table className="min-w-full divide-y divide-gray-300">
+					<table className=" my-2 min-w-full divide-y divide-gray-300">
 						<thead>
 							<tr>
 								<th
 									scope="col"
-									className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
+									className="px-3 py-3.5 pl-4 pr-3 text-sm text-left font-medium text-gray-900 sm:pl-6 lg:pl-8"
 								>
 									Title
 								</th>
@@ -63,7 +74,7 @@ const AdminDashboard = () => {
 									scope="col"
 									className="px-3 py-3.5 text-center text-sm font-semibold text-gray-900"
 								>
-									Updated
+									Last Updated
 								</th>
 								<th
 									scope="col"
@@ -113,12 +124,13 @@ const AdminDashboard = () => {
 										</a>
 									</td>
 									<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
-										{" "}
 										<button
 											type="button"
-											className="rounded-full bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+											//data-value={post}
+											onClick={() => handlePublishUnpublish(post)}
+											className="rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 focus:bg-slate-600"
 										>
-											{post.published ? "Draft" : "Publish"}
+											{post.published ? "Save as draft" : "Publish"}
 										</button>
 									</td>
 								</tr>

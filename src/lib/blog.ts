@@ -45,7 +45,7 @@ export const getBlogPost = async (postSlug: string) => {
 export const createNewBlogPost = async (blogPostData: {
 	title: string;
 	content: string;
-	publish: boolean;
+	published: boolean;
 }) => {
 	const res = await fetch(`${blogApiUrl}/posts/`, {
 		method: "POST",
@@ -86,6 +86,22 @@ export const AddCommentToBlogPost = async (AddCommentProps: {
 			body: JSON.stringify(comment),
 		}
 	);
+
+	return res.json();
+};
+
+export const UpdateBlogPost = async (BlogPostProps: BlogpostData) => {
+	const res = await fetch(`${blogApiUrl}/posts/${BlogPostProps.slug}`, {
+		method: "PUT",
+		mode: "cors",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${localStorage.getItem("token")}`,
+		},
+		redirect: "follow",
+		referrerPolicy: "no-referrer",
+		body: JSON.stringify(BlogPostProps),
+	});
 
 	return res.json();
 };
