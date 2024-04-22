@@ -14,6 +14,22 @@ export const getBlogPosts = async (limit: number) => {
 	return res.json();
 };
 
+export const getPublishedUnpublishedBlogPosts = async (limit: number) => {
+	const res = await fetch(`${blogApiUrl}/allposts?limit=${limit}`, {
+		mode: "cors",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${localStorage.getItem("token")}`,
+		},
+	});
+
+	if (!res.ok) {
+		throw new Error(`HTTP error: Status ${res.status}`);
+	}
+
+	return res.json();
+};
+
 export const getBlogPost = async (postSlug: string) => {
 	const res = await fetch(`${blogApiUrl}/posts/${postSlug}`, {
 		mode: "cors",

@@ -5,6 +5,7 @@ import LoginForm from "./pages/Login";
 import RegisterForm from "./pages/Register";
 import AllPosts from "./pages/AllPosts";
 import NewPost from "./pages/NewPost";
+import AdminDashboard from "./pages/AdminDashboard";
 
 function App() {
 	return (
@@ -31,6 +32,17 @@ function App() {
 						)
 					}
 				></Route>
+				<Route
+					path="/admin"
+					element={
+						// need to be logged in AND an admin --> how do we verify the latter?
+						localStorage.getItem("token") ? (
+							<AdminDashboard />
+						) : (
+							<Navigate to="/" replace />
+						)
+					}
+				/>
 				<Route path="/blog/" element={<AllPosts />} />
 				<Route path="/blog/:slug" element={<Blogpost />} />
 				<Route

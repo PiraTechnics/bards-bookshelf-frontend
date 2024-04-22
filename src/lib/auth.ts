@@ -39,3 +39,22 @@ export const loginUser = async (loginData: {
 
 	return res.json();
 };
+
+export const isAdmin = async () => {
+	const res = await fetch(`${authUrl}/authorized`, {
+		mode: "cors",
+		headers: {
+			"Content-Type": "application/json",
+			Authorization: `Bearer ${localStorage.getItem("token")}`,
+		},
+		redirect: "follow",
+		referrerPolicy: "no-referrer",
+	});
+
+	if (!res.ok) {
+		console.log(res.json());
+		throw new Error(`HTTP error: Status ${res.status}`);
+	}
+
+	return res.json();
+};
