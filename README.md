@@ -34,3 +34,5 @@ Thanks to the tireless community of developers and teachers for all you do.
 ### Known Issues/Bugs
 
 1. User stays logged in after token expires server-side. This is undesirable and causes strange behavior when attempting to access protected routes
+2. Viewing and/or editing of drafts not yet implemented. Will 404 instead
+3. Routes are not currently nested, leading to inconsistent error behavior

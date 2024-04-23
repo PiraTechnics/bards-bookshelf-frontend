@@ -85,11 +85,11 @@ const EditPost = () => {
 			post && (
 				<Layout
 					content={
-						<div className="flex min-h-full flex-1 flex-col justify-center px-6 py-4 lg:px-8 border-t mt-4 border-gray-200">
-							<h3>New Post</h3>
+						<div className="flex min-h-full flex-1 flex-col justify-center py-4 lg:px-8 border-t mt-4 border-gray-200">
+							<h3>Edit Post</h3>
 							<form
 								onSubmit={handleSubmit}
-								className="mt-4 py-8 px-24 border-2 border-gray-200 rounded-md flex flex-col"
+								className="mt-4 py-8 px-1 md:px-8 lg:px-24 border-2 border-gray-200 rounded-md flex flex-col"
 							>
 								<div className="flex flex-col gap-2 pb-4">
 									<label

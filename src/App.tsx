@@ -7,6 +7,7 @@ import AllPosts from "./pages/AllPosts";
 import NewPost from "./pages/NewPost";
 import AdminDashboard from "./pages/AdminDashboard";
 import EditPost from "./pages/EditPost";
+import Error404 from "./pages/Error404";
 
 function App() {
 	return (
@@ -66,6 +67,7 @@ function App() {
 						)
 					}
 				/>
+				<Route path="*" element={<Error404 />} />
 			</Routes>
 		</BrowserRouter>
 	);

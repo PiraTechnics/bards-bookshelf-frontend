@@ -90,6 +90,27 @@ export const AddCommentToBlogPost = async (AddCommentProps: {
 	return res.json();
 };
 
+export const RemoveCommentFromPost = async (RemoveCommentProps: {
+	postSlug: string;
+	commentId: string;
+}) => {
+	const res = await fetch(
+		`${blogApiUrl}/posts/${RemoveCommentProps.postSlug}/comment/${RemoveCommentProps.commentId}`,
+		{
+			method: "POST",
+			mode: "cors",
+			headers: {
+				"Content-Type": "application/json",
+				Authorization: `Bearer ${localStorage.getItem("token")}`,
+			},
+			redirect: "follow",
+			referrerPolicy: "no-referrer",
+		}
+	);
+
+	return res.json();
+};
+
 export const UpdateBlogPost = async (blogPostData: {
 	title: string;
 	content: string;

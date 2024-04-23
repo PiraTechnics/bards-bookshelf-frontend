@@ -94,7 +94,12 @@ const AdminDashboard = () => {
 							{posts.map((post) => (
 								<tr key={post._id}>
 									<td className="whitespace-nowrap py-4 pl-4 pr-3 text-sm font-medium text-gray-900 sm:pl-6 lg:pl-8">
-										{post.title}
+										<a
+											className="underline text-blue-400"
+											href={`/blog/${post.slug}`}
+										>
+											{post.title}
+										</a>
 									</td>
 									<td className="whitespace-nowrap px-3 py-4 text-sm text-gray-500 text-center">
 										{post.published ? (
